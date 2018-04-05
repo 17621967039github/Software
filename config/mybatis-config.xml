@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+
+<!--设置主键及其日志-->
+<settings>
+  	<setting name="useGeneratedKeys" value="true"/>
+  	<setting name="logImpl" value="LOG4J"/>
+  	<!--嵌入式精简版-->
+  	<setting name="autoMappingBehavior" value="FULL"/>
+</settings>
+
+<!--取别名的二种方式,减少冗余-->
+<typeAliases>
+	<package name="com.mfxj.pojo" />
+</typeAliases>
+
+<!--使用分页插件-->
+<plugins>
+	<plugin interceptor="com.github.pagehelper.PageHelper">
+		<!--启用数据合理化如果pageNum<1或pageNum>pages会返回空数据 -->
+		<property name="reasonable" value="true"/>
+		<!--如果pagesize每页显示的数据量为0则查询全部-->
+		<property name="pageSizeZero" value="true"/>
+	</plugin>
+</plugins>
+
+<!--映射的二种方法-->
+<mappers>
+	 <package name="com.mfxj.dao"/>
+</mappers>
+</configuration>

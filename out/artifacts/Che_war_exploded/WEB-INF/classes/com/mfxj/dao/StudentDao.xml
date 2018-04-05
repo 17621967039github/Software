@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.mfxj.dao.StudentDao">
+  <!--查询所有学员-->
+  <select id="find" resultType="Student">
+  	select * from student
+  </select>
+  
+  <!--新增学员-->
+  <insert id="insert" keyColumn="sid" keyProperty="id" parameterType="Student">
+  	insert into student(name,bornDate) values(#{name},#{bornDate})
+  </insert>
+  
+  	<!--动态查询-->
+	<!-- <sql id="conditioncha">
+	<where>	
+		stztid=2
+		<if test="stdeid!=null">
+			and stdeid=#{stdeid}
+		</if>
+		<if test="stpoid!=null">
+			and stpoid=#{stpoid}
+		</if>
+	</where>
+	</sql>
+	
+ 	浏览人员方法
+	<select id="findStaff" resultType="Staff">
+		select * from staff s
+		<include refid="conditioncha"/>
+	</select>
+	
+	新增就职人员方法
+	<insert id="insertStaff" parameterType="Staff">
+		<selectKey keyProperty="stId" resultType="int" order="BEFORE">
+			select staff_seq.nextval from dual
+		</selectKey>
+		insert into staff(stid, stname, stztid, stsex, stage, stmajor, stworkjy, steduaction, stschool, stphone, stemail, stundergo, stpoid, stdeid, stborndate,stimage)
+		values(#{stId},#{stName},#{staffZt.ztId},#{stSex},#{stAge},#{stMajor},#{stWorkJy},#{stEduaction},#{stSchool},#{stPhone},#{stEmail},#{stUndergo},#{position.poId},#{department.deId},#{stBornDate},#{stImage})
+	</insert>
+	
+	四表连
+	<resultMap type="Staff" id="staffMapper">
+		<id property="stId" column="stid"/>
+		<association property="department" javaType="Department"/>
+		<association property="position" javaType="Position"/>
+		<association property="staffZt" javaType="StaffZt"/>
+	</resultMap>
+	
+	根据id查询就职人员方法
+	<select id="findStaffId" resultMap="staffMapper">
+		select * from staff s
+		left join department d on d.deid=s.stdeid
+		left join position p on p.poid=s.stpoid
+		left join staffzt t on t.ztid=s.stztid
+		where s.stid=#{stid}
+	</select>
+	
+	修改人员方法
+	<update id="updateStaffId" parameterType="Staff">
+		update staff set stname=#{stName}, stztid=#{staffZt.ztId}, stsex=#{stSex}, 
+		stage=#{stAge}, stmajor=#{stMajor}, stworkjy=#{stWorkJy}, steduaction=#{stEduaction}, 
+		stschool=#{stSchool}, stphone=#{stPhone}, stemail=#{stEmail}, stundergo=#{stUndergo},
+		stpoid=#{position.poId}, stdeid=#{department.deId}, stborndate=#{stBornDate} ,stimage=#{stImage}
+		where stid=#{stId}
+	</update>
+	修改薪金后修改人员方法	
+	<update id="updateStaffId2" parameterType="Staff">
+		update staff 
+		<set>
+				<if test="position.poId !=null and position.poId!=0">
+					stpoid=#{position.poId}
+				</if> 
+				<if test="department.deId !=null and department.deId!=0">
+					stdeid=#{department.deId}
+				</if>				
+			</set>
+			where stId=#{stId}
+	</update>
+	
+	
+	
+	招聘动态查询
+	<sql id="conditioncha1">
+	<where>	
+		stztid=1
+		<if test="stdeid!=null">
+			and stdeid=#{stdeid}
+		</if>
+		<if test="stpoid!=null">
+			and stpoid=#{stpoid}
+		</if>
+	</where>
+	</sql>
+	
+	浏览招聘信息方法
+	<select id="findJob" resultType="Staff">
+		select * from staff
+		<include refid="conditioncha1"/>
+	</select>
+	
+	人员入库方法
+	<update id="updateJob" parameterType="int">
+		update staff set stztid=#{stztid}
+		where stid=#{stid}
+	</update>
+	
+	<resultMap type="Staff" id="Staff5">
+		<id property="stId" column="stId"/>
+		<association property="department" javaType="Department"/>
+		<association property="position" javaType="Position"/>
+	</resultMap>
+	
+	<select id="findByName" parameterType="String" resultMap="Staff5">
+		select * from staff st
+		inner join department d on st.stdeid=d.deId
+		inner join position p on p.poid=st.stpoid
+		where st.stname=#{stname} 
+	</select>
+	验证人员在职 
+	<select id="findByName2" parameterType="String" resultMap="Staff5">
+		select * from staff st
+		inner join department d on st.stdeid=d.deId
+		inner join position p on p.poid=st.stpoid
+		where st.stname=#{stname} and  st.stztid=2
+	</select>
+	
+	<select id="findName" resultType="int">	        
+		select stid from staff 		
+		<where>
+				<if test="stname !=null and stname !=''">
+	       			and stname like concat(concat('%',#{stname}),'%')		
+	       		</if>
+		</where>
+	</select>
+	
+	<delete id="chu1" parameterType="int">
+		delete from salary
+		where sastid=#{sastid}
+	</delete> -->
+  </mapper>
