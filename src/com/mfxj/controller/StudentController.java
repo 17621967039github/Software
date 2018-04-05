@@ -21,7 +21,7 @@ public class StudentController {
 	private StudentService studentinfoservice;
 
 	/**
-	*查询
+	*查询1
 	*/
 	@RequestMapping("/find")
 	public ModelAndView find(ModelAndView mode)
